@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mister_delivery_flutter/app/modules/config/domain/entities/config_entity.dart';
 import 'package:mister_delivery_flutter/app/modules/config/domain/errors/errors.dart';
-import 'package:mister_delivery_flutter/app/modules/config/infra/datasources/get_config_datasource.dart';
+import 'package:mister_delivery_flutter/app/modules/config/infra/datasources/config_datasource.dart';
 import 'package:mister_delivery_flutter/app/modules/config/infra/models/config_model.dart';
 import 'package:mister_delivery_flutter/app/modules/config/infra/repositories/get_config_repository_implementation.dart';
 import 'package:mockito/annotations.dart';
@@ -10,14 +10,13 @@ import 'package:mockito/mockito.dart';
 
 import 'get_config_repository_implementation_test.mocks.dart';
 
-@GenerateMocks([ConfigModel, IGetConfigDatasource])
+@GenerateMocks([ConfigModel, IConfigDatasource])
 main() {
-  final datasource = new MockIGetConfigDatasource();
-  final repository = GetConfigRepositoryImplementation(datasource);
+  final datasource = new MockIConfigDatasource();
+  final repository = ConfigRepositoryImplementation(datasource);
 
   test('should return GetConfig', () async {
-    when(datasource.getConfig())
-        .thenAnswer((_) async => new MockConfigModel());
+    when(datasource.getConfig()).thenAnswer((_) async => new MockConfigModel());
 
     final result = await repository.getConfig();
 

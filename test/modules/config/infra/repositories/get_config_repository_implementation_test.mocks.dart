@@ -4,7 +4,7 @@
 
 import 'dart:async' as _i4;
 
-import 'package:mister_delivery_flutter/app/modules/config/infra/datasources/get_config_datasource.dart'
+import 'package:mister_delivery_flutter/app/modules/config/infra/datasources/config_datasource.dart'
     as _i3;
 import 'package:mister_delivery_flutter/app/modules/config/infra/models/config_model.dart'
     as _i2;
@@ -51,12 +51,11 @@ class MockConfigModel extends _i1.Mock implements _i2.ConfigModel {
           as String);
 }
 
-/// A class which mocks [IGetConfigDatasource].
+/// A class which mocks [IConfigDatasource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockIGetConfigDatasource extends _i1.Mock
-    implements _i3.IGetConfigDatasource {
-  MockIGetConfigDatasource() {
+class MockIConfigDatasource extends _i1.Mock implements _i3.IConfigDatasource {
+  MockIConfigDatasource() {
     _i1.throwOnMissingStub(this);
   }
 
