@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
+import 'package:mister_delivery_flutter/app/modules/theme/theme_switcher.dart';
 import 'home_store.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,6 +36,9 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          ThemeSwitcher.of(context).switchTheme(ThemeData(
+            primarySwatch: Colors.yellow,
+          ));
           store.increment();
         },
         child: Icon(Icons.add),

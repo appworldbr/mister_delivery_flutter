@@ -10,6 +10,7 @@ class HomeStore extends NotifierStore<Exception, int> {
 
     int value = state + 1;
     if (value < 5) {
+      
       update(value);
     } else {
       setError(Exception('Error: state not can be > 4'));

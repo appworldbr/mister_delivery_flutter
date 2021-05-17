@@ -42,13 +42,13 @@ class MockConfigModel extends _i1.Mock implements _i2.ConfigModel {
       (super.noSuchMethod(Invocation.getter(#address), returnValue: '')
           as String);
   @override
+  String get color =>
+      (super.noSuchMethod(Invocation.getter(#color), returnValue: '')
+          as String);
+  @override
   Map<String, dynamic> toMap() =>
       (super.noSuchMethod(Invocation.method(#toMap, []),
           returnValue: <String, dynamic>{}) as Map<String, dynamic>);
-  @override
-  String toJson() =>
-      (super.noSuchMethod(Invocation.method(#toJson, []), returnValue: '')
-          as String);
 }
 
 /// A class which mocks [IConfigDatasource].

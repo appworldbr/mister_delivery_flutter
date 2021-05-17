@@ -44,6 +44,10 @@ class MockConfigEntity extends _i1.Mock implements _i3.ConfigEntity {
   String get address =>
       (super.noSuchMethod(Invocation.getter(#address), returnValue: '')
           as String);
+  @override
+  String get color =>
+      (super.noSuchMethod(Invocation.getter(#color), returnValue: '')
+          as String);
 }
 
 /// A class which mocks [IConfigRepository].
