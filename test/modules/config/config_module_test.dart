@@ -17,12 +17,12 @@ import 'mocks/config_mock.dart';
 
 @GenerateMocks([Dio])
 main() {
-  final dio = MockDio();
+  final mockDio = MockDio();
 
   initModule(
     AppModule(),
     replaceBinds: [
-      Bind<Dio>((i) => dio),
+      Bind.instance<Dio>(mockDio),
     ],
   );
 
@@ -37,8 +37,7 @@ main() {
   });
 
   test('should return GetConfigModel', () async {
-    // @todo: verificar porque não está pegando o mock do dio
-    when(dio.get(any)).thenAnswer((_) async => Response(
+    when(mockDio.get(any)).thenAnswer((_) async => Response(
           data: jsonDecode(configMock),
           statusCode: 200,
           requestOptions: new RequestOptions(path: ''),

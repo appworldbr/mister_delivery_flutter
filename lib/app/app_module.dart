@@ -11,7 +11,7 @@ class AppModule extends Module {
 
   @override
   final List<Bind> binds = [
-    Bind.singleton((i) => Dio()),
+    Bind.lazySingleton<Dio>((i) => Dio()),
   ];
 
   @override

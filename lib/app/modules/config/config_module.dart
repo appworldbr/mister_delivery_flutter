@@ -8,10 +8,11 @@ import 'package:mister_delivery_flutter/app/modules/config/infra/repositories/ge
 class ConfigModule extends Module {
   @override
   final List<Bind> binds = [
-    Bind.singleton((i) => MisterDeliveryDatasourceImplementation(i()),
+    Bind.lazySingleton((i) => MisterDeliveryDatasourceImplementation(i()),
         export: true),
-    Bind.singleton((i) => ConfigRepositoryImplementation(i()), export: true),
-    Bind.singleton((i) => GetConfigUsecase(i()), export: true),
-    Bind.singleton((i) => ConfigSingleton(), export: true),
+    Bind.lazySingleton((i) => ConfigRepositoryImplementation(i()),
+        export: true),
+    Bind.lazySingleton((i) => GetConfigUsecase(i()), export: true),
+    Bind.lazySingleton((i) => ConfigSingleton(), export: true),
   ];
 }
