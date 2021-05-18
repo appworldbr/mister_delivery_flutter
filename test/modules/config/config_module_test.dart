@@ -37,11 +37,13 @@ main() {
   });
 
   test('should return GetConfigModel', () async {
-    when(mockDio.get(any)).thenAnswer((_) async => Response(
-          data: jsonDecode(configMock),
-          statusCode: 200,
-          requestOptions: new RequestOptions(path: ''),
-        ));
+    when(mockDio.get(any)).thenAnswer(
+      (_) async => Response(
+        data: jsonDecode(configMock),
+        statusCode: 200,
+        requestOptions: new RequestOptions(path: ''),
+      ),
+    );
 
     final usecase = Modular.get<GetConfigUsecase>();
     final result = await usecase();

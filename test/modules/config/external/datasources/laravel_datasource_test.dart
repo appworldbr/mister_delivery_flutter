@@ -18,13 +18,15 @@ main() {
   final datasource = new MisterDeliveryDatasourceImplementation(dio);
 
   initModule(ConfigModule());
-  
+
   test('should get the ResultConfigModel', () {
-    when(dio.get(any)).thenAnswer((_) async => Response(
-          data: jsonDecode(configMock),
-          statusCode: 200,
-          requestOptions: new RequestOptions(path: ''),
-        ));
+    when(dio.get(any)).thenAnswer(
+      (_) async => Response(
+        data: jsonDecode(configMock),
+        statusCode: 200,
+        requestOptions: new RequestOptions(path: ''),
+      ),
+    );
 
     final future = datasource.getConfig();
     expect(future, completes);
