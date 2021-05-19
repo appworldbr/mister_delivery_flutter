@@ -2,11 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mister_delivery_flutter/app/modules/api_uri/get_uri.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/errors/errors.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/infra/datasources/get_food_details_datasource.dart';
 
 import 'package:mister_delivery_flutter/app/modules/foods/infra/datasources/search_datasource.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/infra/models/basic_food_model.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/infra/models/food_model.dart';
 
-class MisterDeliveryDatasource implements ISearchDatasource {
+class MisterDeliveryDatasource
+    implements ISearchDatasource, IGetFoodDetailsDatasource {
   final Dio dio;
 
   MisterDeliveryDatasource(this.dio);
@@ -30,6 +33,18 @@ class MisterDeliveryDatasource implements ISearchDatasource {
           .toList();
 
       return list;
+    }
+
+    throw FailureFoodDatasource();
+  }
+
+  @override
+  Future<FoodModel> getFood(int id) async {
+    final response =
+        await dio.get(Modular.get<UriSingleton>().uri + '/food/$id');
+
+    if (response.statusCode == 200) {
+      return FoodModel.fromMap(response.data['food']);
     }
 
     throw FailureFoodDatasource();

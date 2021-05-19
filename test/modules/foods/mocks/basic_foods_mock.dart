@@ -1,4 +1,4 @@
-const basicFoodMock = """{
+const misterDeliveryBasicFoodMock = """{
   "food": [
     {
       "id": 10,

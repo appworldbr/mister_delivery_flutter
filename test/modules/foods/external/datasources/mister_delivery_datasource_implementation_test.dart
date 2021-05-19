@@ -10,6 +10,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../mocks/basic_foods_mock.dart';
+import '../../mocks/food_mock.dart';
 import 'mister_delivery_datasource_implementation_test.mocks.dart';
 
 @GenerateMocks([Dio])
@@ -19,42 +20,72 @@ main() {
 
   initModules([GetUriModule()]);
 
-  test('should return a list of BasicFoodModel', () {
-    when(dio.get(any)).thenAnswer(
-      (_) async => Response(
-        data: jsonDecode(basicFoodMock),
-        statusCode: 200,
-        requestOptions: new RequestOptions(path: ''),
-      ),
-    );
+  group('ISearchDatasource', () {
+    test('should return a list of BasicFoodModel', () {
+      when(dio.get(any)).thenAnswer(
+        (_) async => Response(
+          data: jsonDecode(misterDeliveryBasicFoodMock),
+          statusCode: 200,
+          requestOptions: new RequestOptions(path: ''),
+        ),
+      );
 
-    final future = datasource.search('');
-    expect(future, completes);
+      final future = datasource.search('');
+      expect(future, completes);
+    });
+
+    test('should return a list of BasicFoodModel with params', () {
+      when(dio.get(any, queryParameters: {'q': 'test'})).thenAnswer(
+        (_) async => Response(
+          data: jsonDecode(misterDeliveryBasicFoodMock),
+          statusCode: 200,
+          requestOptions: new RequestOptions(path: ''),
+        ),
+      );
+
+      final future = datasource.search('test');
+      expect(future, completes);
+    });
+
+    test('should return a error FailureFoodDatasource if code is\'t 200', () {
+      when(dio.get(any)).thenAnswer(
+        (_) async => Response(
+          data: jsonDecode(misterDeliveryBasicFoodMock),
+          statusCode: 401,
+          requestOptions: new RequestOptions(path: ''),
+        ),
+      );
+
+      final future = datasource.search('');
+      expect(future, throwsA(isA<FailureFoodDatasource>()));
+    });
   });
 
-  test('should return a list of BasicFoodModel with params', () {
-    when(dio.get(any, queryParameters: {'q': 'test'})).thenAnswer(
-      (_) async => Response(
-        data: jsonDecode(basicFoodMock),
-        statusCode: 200,
-        requestOptions: new RequestOptions(path: ''),
-      ),
-    );
+  group('IGetFoodDetailsDatasource', () {
+    test('should return a FoodModel', () {
+      when(dio.get(any)).thenAnswer(
+        (_) async => Response(
+          data: jsonDecode(misterDeliveryFoodMock),
+          statusCode: 200,
+          requestOptions: new RequestOptions(path: ''),
+        ),
+      );
 
-    final future = datasource.search('test');
-    expect(future, completes);
-  });
+      final future = datasource.getFood(1);
+      expect(future, completes);
+    });
 
-  test('should return a error FailureFoodDatasource if code is\'t 200', () {
-    when(dio.get(any)).thenAnswer(
-      (_) async => Response(
-        data: jsonDecode(basicFoodMock),
-        statusCode: 401,
-        requestOptions: new RequestOptions(path: ''),
-      ),
-    );
+    test('should return a error FailureFoodDatasource if code is\'t 200', () {
+      when(dio.get(any)).thenAnswer(
+        (_) async => Response(
+          data: jsonDecode(misterDeliveryFoodMock),
+          statusCode: 401,
+          requestOptions: new RequestOptions(path: ''),
+        ),
+      );
 
-    final future = datasource.search('');
-    expect(future, throwsA(isA<FailureFoodDatasource>()));
+      final future = datasource.search('');
+      expect(future, throwsA(isA<FailureFoodDatasource>()));
+    });
   });
 }

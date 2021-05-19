@@ -35,7 +35,7 @@ main() {
   test('should return a list of BasicFoodEntity', () async {
     when(mockDio.get(any)).thenAnswer(
       (_) async => Response(
-        data: jsonDecode(basicFoodMock),
+        data: jsonDecode(misterDeliveryBasicFoodMock),
         statusCode: 200,
         requestOptions: new RequestOptions(path: ''),
       ),
