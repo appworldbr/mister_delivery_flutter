@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mister_delivery_flutter/app/modules/api_uri/get_uri.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/errors/errors.dart';
 
 import 'package:mister_delivery_flutter/app/modules/foods/infra/datasources/search_datasource.dart';
@@ -18,7 +20,7 @@ class MisterDeliveryDatasource implements ISearchDatasource {
     }
 
     final response = await dio.get(
-      'http://delivery.local/api/v1.0/food',
+      Modular.get<UriSingleton>().uri + '/food',
       queryParameters: queryParams.isNotEmpty ? queryParams : null,
     );
 
