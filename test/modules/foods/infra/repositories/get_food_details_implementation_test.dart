@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/errors/errors.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/infra/datasources/get_food_details_datasource.dart';
-import 'package:mister_delivery_flutter/app/modules/foods/infra/models/food_model.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/infra/models/requests/food_model.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/infra/repositories/get_food_details_implementation.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

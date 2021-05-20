@@ -5,9 +5,10 @@ import 'package:mister_delivery_flutter/app/modules/api_uri/get_uri_from_mobile.
 class GetUriModule extends Module {
   @override
   final List<Bind> binds = [
-    Bind.lazySingleton((i) => GetUriFromMobile('http://delivery.local/api/v1.0'), export: true),
+    Bind.singleton((i) => GetUriFromMobile('http://delivery.local/api/v1.0'),
+        export: true),
     // Bind.singleton((i) => GetUriFromJavascript(), export: true),
-    Bind.lazySingleton((i) => GetUri(i()), export: true),
-    Bind.lazySingleton((i) => UriSingleton(), export: true),
+    Bind.singleton((i) => GetUri(i()), export: true),
+    Bind.singleton((i) => UriSingleton(), export: true),
   ];
 }

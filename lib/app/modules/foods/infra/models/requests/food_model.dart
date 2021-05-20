@@ -1,5 +1,5 @@
-import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/food_entity.dart';
-import 'package:mister_delivery_flutter/app/modules/foods/infra/models/extra_model.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/requests/food_entity.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/infra/models/requests/extra_model.dart';
 
 class FoodModel extends FoodEntity {
   FoodModel({

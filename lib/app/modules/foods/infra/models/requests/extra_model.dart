@@ -1,4 +1,4 @@
-import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/extra_entity.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/requests/extra_entity.dart';
 
 class ExtraModel extends ExtraEntity {
   ExtraModel({

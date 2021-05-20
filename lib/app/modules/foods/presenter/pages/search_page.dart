@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
-import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/basic_food_entity.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/requests/basic_food_entity.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/errors/errors.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/presenter/stores/search_store.dart';
 import 'package:mister_delivery_flutter/app/shared/components/mister_delivery_bottom_navigation_bar.dart';
@@ -18,7 +18,10 @@ class _SearchPageState extends ModularState<SearchPage, SearchStore> {
       itemCount: list.length,
       itemBuilder: (_, id) {
         final item = list[id];
-        return MisterDeliveryFoodItem(food: item);
+        return MisterDeliveryFoodItem(
+          food: item,
+          onPressed: () => Modular.to.pushNamed('${item.id}'),
+        );
       },
     );
   }

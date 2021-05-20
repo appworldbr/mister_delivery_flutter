@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/food_entity.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/requests/food_entity.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/errors/errors.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/repositories/get_food_details_repository.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/usecases/get_food_details_usecase.dart';
