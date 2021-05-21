@@ -16,7 +16,7 @@ import 'mister_delivery_datasource_implementation_test.mocks.dart';
 @GenerateMocks([Dio])
 main() {
   final dio = MockDio();
-  final datasource = MisterDeliveryDatasource(dio);
+  final datasource = MisterDeliveryDatasourceImplementation(dio);
 
   initModules([GetUriModule()]);
 

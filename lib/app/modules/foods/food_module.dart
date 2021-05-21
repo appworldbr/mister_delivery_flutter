@@ -12,7 +12,7 @@ import 'package:mister_delivery_flutter/app/modules/foods/presenter/stores/searc
 class FoodModule extends Module {
   @override
   final List<Bind> binds = [
-    Bind.lazySingleton((i) => MisterDeliveryDatasource(i())),
+    Bind.lazySingleton((i) => MisterDeliveryDatasourceImplementation(i())),
     Bind.lazySingleton((i) => SearchRepositoryImplementation(i())),
     Bind.lazySingleton((i) => SearchByNameUsecase(i())),
     Bind.lazySingleton((i) => GetFoodDetailsImplementation(i())),

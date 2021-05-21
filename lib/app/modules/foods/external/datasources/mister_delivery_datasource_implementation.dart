@@ -8,11 +8,11 @@ import 'package:mister_delivery_flutter/app/modules/foods/infra/datasources/sear
 import 'package:mister_delivery_flutter/app/modules/foods/infra/models/requests/basic_food_model.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/infra/models/requests/food_model.dart';
 
-class MisterDeliveryDatasource
+class MisterDeliveryDatasourceImplementation
     implements ISearchDatasource, IGetFoodDetailsDatasource {
   final Dio dio;
 
-  MisterDeliveryDatasource(this.dio);
+  MisterDeliveryDatasourceImplementation(this.dio);
 
   @override
   Future<List<BasicFoodModel>> search(String searchName) async {
