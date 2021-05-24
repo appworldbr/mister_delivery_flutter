@@ -14,7 +14,7 @@ class MisterDeliveryDatasourceImplementation implements IConfigDatasource {
   @override
   Future<ConfigModel> getConfig() async {
     final response = await dio.get(
-      Modular.get<UriSingleton>().uri + '/settings',
+      Modular.get<UriSingleton>().api + '/settings',
     );
     if (response.statusCode == 200) {
       final configModel = ConfigModel.fromMap(response.data['settings']);

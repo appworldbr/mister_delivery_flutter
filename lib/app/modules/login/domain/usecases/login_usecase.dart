@@ -1,11 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:mister_delivery_flutter/app/modules/login/domain/entities/response/token_entity.dart';
 import 'package:mister_delivery_flutter/app/modules/login/domain/errors/errors.dart';
 import 'package:mister_delivery_flutter/app/modules/login/domain/repositories/user_login_repository.dart';
 import 'package:mister_delivery_flutter/app/modules/login/infra/models/request/user_login_model.dart';
 
 abstract class ILoginWithEmail {
-  Future<Either<FailureLogin, TokenEntity>> call(UserLoginModel user);
+  Future<Either<FailureLogin, bool>> call(UserLoginModel user);
 }
 
 class LoginWithEmailUsecase implements ILoginWithEmail {
@@ -14,7 +13,7 @@ class LoginWithEmailUsecase implements ILoginWithEmail {
   LoginWithEmailUsecase(this.repository);
 
   @override
-  Future<Either<FailureLogin, TokenEntity>> call(UserLoginModel user) async {
+  Future<Either<FailureLogin, bool>> call(UserLoginModel user) async {
     return repository.login(user);
   }
 }

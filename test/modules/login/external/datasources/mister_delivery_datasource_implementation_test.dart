@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_modular_test/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,26 +8,33 @@ import 'package:mister_delivery_flutter/app/modules/login/infra/models/request/u
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../mocks/login_mock.dart';
 import 'mister_delivery_datasource_implementation_test.mocks.dart';
 
 @GenerateMocks([Dio, UserLoginModel])
 main() {
   final dio = MockDio();
-  final datasource = MisterDeliveryDatasourceImplementation(new Dio());
+
+  when(dio.get(any)).thenAnswer(
+    (_) async => Response(
+      data: true,
+      statusCode: 200,
+      requestOptions: new RequestOptions(path: ''),
+    ),
+  );
+
+  final datasource = MisterDeliveryDatasourceImplementation(dio);
 
   final user = UserLoginModel(
-    tokenName: 'api test',
     email: 'user@user.com',
     password: 'password',
   );
 
   initModules([GetUriModule()]);
 
-  test('should return a TokenModel', () {
+  test('should return a true', () {
     when(dio.post(any, data: user.toJson())).thenAnswer(
       (_) async => Response(
-        data: jsonDecode(misterDeliveryTokenMock),
+        data: true,
         statusCode: 200,
         requestOptions: new RequestOptions(path: ''),
       ),
@@ -39,23 +44,23 @@ main() {
     expect(future, completes);
   });
 
-  test('should return a FailureLoginCredentials on Wrong Credential', () {
+  test('should return FailureUserAlreadyLogged if is 302', () {
     when(dio.post(any, data: user.toJson())).thenAnswer(
       (_) async => Response(
-        data: jsonDecode(misterDeliveryLoginCredentialsFailure),
-        statusCode: 400,
+        data: '',
+        statusCode: 302,
         requestOptions: new RequestOptions(path: ''),
       ),
     );
 
     final future = datasource.login(user);
-    expect(future, throwsA(isA<FailureLoginCredentials>()));
+    expect(future, throwsA(isA<FailureUserAlreadyLogged>()));
   });
 
-  test('should return FailureLoginDatasource if is\'t 200 or 400', () {
+  test('should return FailureLoginDatasource if is\'t 200 or 302', () {
     when(dio.post(any, data: user.toJson())).thenAnswer(
       (_) async => Response(
-        data: jsonDecode(misterDeliveryLoginCredentialsFailure),
+        data: '',
         statusCode: 401,
         requestOptions: new RequestOptions(path: ''),
       ),

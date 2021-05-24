@@ -23,7 +23,7 @@ class MisterDeliveryDatasourceImplementation
     }
 
     final response = await dio.get(
-      Modular.get<UriSingleton>().uri + '/food',
+      Modular.get<UriSingleton>().api + '/food',
       queryParameters: queryParams.isNotEmpty ? queryParams : null,
     );
 
@@ -41,7 +41,7 @@ class MisterDeliveryDatasourceImplementation
   @override
   Future<FoodModel> getFood(int id) async {
     final response =
-        await dio.get(Modular.get<UriSingleton>().uri + '/food/$id');
+        await dio.get(Modular.get<UriSingleton>().api + '/food/$id');
 
     if (response.statusCode == 200) {
       return FoodModel.fromMap(response.data['food']);

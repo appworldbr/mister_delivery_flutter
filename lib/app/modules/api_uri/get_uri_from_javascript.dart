@@ -4,8 +4,15 @@ import 'dart:js';
 import 'package:mister_delivery_flutter/app/modules/api_uri/get_uri_entity.dart';
 
 class GetUriFromJavascript extends GetUriEntity {
-  String? uri;
+  String? base;
+  String? api;
+
   GetUriFromJavascript() {
-    this.uri = context['uriConfiguration'];
+    final model = GetUriEntity.fromJson(context['JSON'].callMethod(
+      'stringify',
+      [context['uriConfiguration']],
+    ));
+    this.api = model.api;
+    this.base = model.base;
   }
 }

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mister_delivery_flutter/app/core_module.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/food_module.dart';
+import 'package:mister_delivery_flutter/app/shared/custom_dio.dart';
 
 class AppModule extends Module {
   @override
@@ -11,7 +12,7 @@ class AppModule extends Module {
 
   @override
   final List<Bind> binds = [
-    Bind.lazySingleton<Dio>((i) => Dio()),
+    Bind.lazySingleton<Dio>((i) => CustomDio().instance),
   ];
 
   @override

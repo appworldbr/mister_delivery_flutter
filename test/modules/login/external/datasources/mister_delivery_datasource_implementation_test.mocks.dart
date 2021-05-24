@@ -388,10 +388,6 @@ class MockUserLoginModel extends _i1.Mock implements _i10.UserLoginModel {
   }
 
   @override
-  String get tokenName =>
-      (super.noSuchMethod(Invocation.getter(#tokenName), returnValue: '')
-          as String);
-  @override
   String get email =>
       (super.noSuchMethod(Invocation.getter(#email), returnValue: '')
           as String);

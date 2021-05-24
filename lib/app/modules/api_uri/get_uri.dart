@@ -3,7 +3,8 @@ import 'package:mister_delivery_flutter/app/modules/api_uri/get_uri_entity.dart'
 class GetUri {
   GetUriEntity getUriModel;
   GetUri(this.getUriModel) {
-    UriSingleton()._uri = getUriModel.uri ?? '';
+    UriSingleton()._api = getUriModel.api ?? '';
+    UriSingleton()._base = getUriModel.base ?? '';
   }
 }
 
@@ -16,7 +17,9 @@ class UriSingleton {
 
   UriSingleton._internal();
 
-  String _uri = '';
+  String _api = '';
+  String _base = '';
 
-  String get uri => _uri;
+  String get api => _api;
+  String get base => _base;
 }

@@ -2,15 +2,13 @@
 // in mister_delivery_flutter/test/modules/login/domain/usecases/login_usecase_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i6;
+import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i2;
-import 'package:mister_delivery_flutter/app/modules/login/domain/entities/response/token_entity.dart'
-    as _i4;
 import 'package:mister_delivery_flutter/app/modules/login/domain/errors/errors.dart'
-    as _i7;
+    as _i6;
 import 'package:mister_delivery_flutter/app/modules/login/domain/repositories/user_login_repository.dart'
-    as _i5;
+    as _i4;
 import 'package:mister_delivery_flutter/app/modules/login/infra/models/request/user_login_model.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -33,10 +31,6 @@ class MockUserLoginModel extends _i1.Mock implements _i3.UserLoginModel {
   }
 
   @override
-  String get tokenName =>
-      (super.noSuchMethod(Invocation.getter(#tokenName), returnValue: '')
-          as String);
-  @override
   String get email =>
       (super.noSuchMethod(Invocation.getter(#email), returnValue: '')
           as String);
@@ -54,35 +48,20 @@ class MockUserLoginModel extends _i1.Mock implements _i3.UserLoginModel {
           as String);
 }
 
-/// A class which mocks [TokenEntity].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockTokenEntity extends _i1.Mock implements _i4.TokenEntity {
-  MockTokenEntity() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  String get token =>
-      (super.noSuchMethod(Invocation.getter(#token), returnValue: '')
-          as String);
-}
-
 /// A class which mocks [IUserLoginRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockIUserLoginRepository extends _i1.Mock
-    implements _i5.IUserLoginRepository {
+    implements _i4.IUserLoginRepository {
   MockIUserLoginRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<_i2.Either<_i7.FailureLogin, _i4.TokenEntity>> login(
+  _i5.Future<_i2.Either<_i6.FailureLogin, bool>> login(
           _i3.UserLoginModel? user) =>
       (super.noSuchMethod(Invocation.method(#login, [user]),
-              returnValue:
-                  Future<_i2.Either<_i7.FailureLogin, _i4.TokenEntity>>.value(
-                      _FakeEither<_i7.FailureLogin, _i4.TokenEntity>()))
-          as _i6.Future<_i2.Either<_i7.FailureLogin, _i4.TokenEntity>>);
+              returnValue: Future<_i2.Either<_i6.FailureLogin, bool>>.value(
+                  _FakeEither<_i6.FailureLogin, bool>()))
+          as _i5.Future<_i2.Either<_i6.FailureLogin, bool>>);
 }
