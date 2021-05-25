@@ -17,8 +17,30 @@ class _SplashPage extends ModularState<SplashPage, SplashStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Splash Screen'),
+      body: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+        ),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset(
+                'assets/images/logo.png',
+                width: 150,
+                fit: BoxFit.cover,
+              ),
+              SizedBox(height: 50),
+              CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation(
+                  Theme.of(context).hintColor,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

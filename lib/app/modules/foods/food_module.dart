@@ -23,7 +23,7 @@ class FoodModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/', child: (_, args) => SearchPage()),
+    ChildRoute(Modular.initialRoute, child: (_, args) => SearchPage()),
     ChildRoute(
       '/:id',
       child: (_, args) => DetailsPage(

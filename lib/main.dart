@@ -9,6 +9,7 @@ void main() => runApp(
       ThemeSwitcherWidget(
         initialTheme: ThemeData(
           primarySwatch: Colors.blue,
+          fontFamily: 'Poppins',
         ),
         child: ModularApp(
           module: AppModule(),

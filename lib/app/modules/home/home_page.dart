@@ -15,23 +15,39 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends ModularState<HomePage, HomeStore> {
   @override
   Widget build(BuildContext context) {
+    const btns = [
+      {'name': 'Login', 'url': '/login'},
+      {'name': 'Splash', 'url': '/splash'},
+      {'name': 'Foods', 'url': '/foods'}
+    ];
+
+    List<Widget> btnWidgets = [];
+
+    for (var i = 0; i < btns.length; i++) {
+      final btn = btns[i];
+      btnWidgets.add(Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: OutlinedButton(
+          style: OutlinedButton.styleFrom(
+            primary: Colors.white,
+            backgroundColor: Colors.blue,
+          ),
+          onPressed: () {
+            Modular.to.navigate(btn['url']!);
+          },
+          child: Text(btn['name']!),
+        ),
+      ));
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Counter'),
       ),
-      body: ScopedBuilder<HomeStore, Exception, int>(
-        store: store,
-        onState: (_, counter) {
-          return Padding(
-            padding: EdgeInsets.all(10),
-            child: Text('$counter'),
-          );
-        },
-        onError: (context, error) => Center(
-          child: Text(
-            'Too many clicks',
-            style: TextStyle(color: Colors.red),
-          ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: btnWidgets,
         ),
       ),
       floatingActionButton: FloatingActionButton(
