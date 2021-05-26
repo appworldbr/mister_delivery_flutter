@@ -4,14 +4,16 @@ import 'package:mister_delivery_flutter/app/modules/login/domain/usecases/login_
 import 'package:mister_delivery_flutter/app/modules/login/infra/repositories/user_login_implementation.dart';
 import 'package:mister_delivery_flutter/app/modules/login/presenter/pages/login_page.dart';
 import 'package:mister_delivery_flutter/app/modules/login/presenter/stores/login_store.dart';
+import 'package:mister_delivery_flutter/app/modules/login/presenter/stores/password_obscure_store.dart';
 
 class LoginModule extends Module {
   @override
   final List<Bind> binds = [
     Bind.lazySingleton((i) => MisterDeliveryDatasourceImplementation(i())),
-    Bind.lazySingleton((i) => UserLoginImplementation(i())),
+    Bind.lazySingleton((i) => UserLoginImplementation(i())),    
     Bind.lazySingleton((i) => LoginWithEmailUsecase(i())),
-    Bind.lazySingleton((i) => LoginStore(i())),
+    Bind.lazySingleton((i) => PasswordObsctureStore()),
+    Bind.lazySingleton((i) => LoginStore(i(), i())),
   ];
 
   @override

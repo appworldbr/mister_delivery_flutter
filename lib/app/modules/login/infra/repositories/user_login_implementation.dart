@@ -11,11 +11,13 @@ class UserLoginImplementation extends IUserLoginRepository {
 
   @override
   Future<Either<FailureLogin, bool>> login(UserLoginModel user) async {
-    try {
-      final result = await datasource.login(user);
-      return Right(result);
-    } catch (e) {
-      return Left(FailureLoginDatasource());
-    }
+    final result = await datasource.login(user);
+    return Right(result);
+    // try {
+    //   final result = await datasource.login(user);
+    //   return Right(result);
+    // } catch (e) {
+    //   return Left(FailureLoginDatasource());
+    // }
   }
 }

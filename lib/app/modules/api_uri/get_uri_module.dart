@@ -7,8 +7,8 @@ class GetUriModule extends Module {
   final List<Bind> binds = [
     Bind.singleton(
         (i) => GetUriFromMobile(
-              base: 'http://delivery.local',
-              api: 'http://delivery.local/api/v1.0',
+              base: 'http://localhost',
+              api: 'http://localhost/api/v1.0',
             ),
         export: true),
     // Bind.singleton((i) => GetUriFromJavascript(), export: true),

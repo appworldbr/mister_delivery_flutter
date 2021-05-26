@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
@@ -52,9 +53,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginStore> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey[300]!,
-                  spreadRadius: .4,
-                  blurRadius: 25,
-                  offset: Offset(0, 15),
+                  spreadRadius: 0,
+                  blurRadius: 0,
+                  offset: Offset(1, 2),
                 ),
               ],
             ),
@@ -112,124 +113,95 @@ class _LoginPageState extends ModularState<LoginPage, LoginStore> {
     );
   }
 
-  Widget _form() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        TextFormField(
-          keyboardType: TextInputType.emailAddress,
-          onSaved: (input) => {}, //TODO onSaved
-          validator: (input) => null, //TODO Validate the Email input
-          decoration: InputDecoration(
-            labelText: "E-mail",
-            labelStyle: TextStyle(
-              color: Theme.of(context).accentColor,
-            ),
-            contentPadding: EdgeInsets.all(12),
-            hintText: 'email@dominio.com',
-            hintStyle: TextStyle(
-              color: Theme.of(context).focusColor.withOpacity(0.7),
-            ),
-            prefixIcon: Icon(
-              Icons.alternate_email,
-              color: Theme.of(context).accentColor,
-            ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).focusColor.withOpacity(0.2),
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).focusColor.withOpacity(0.5),
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).focusColor.withOpacity(0.2),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 16),
-        ScopedBuilder(
-          store: store,
-          onState: (_, __) {
-            return ;
-          },
-        ),
-        TextFormField(
-          keyboardType: TextInputType.text,
-          onSaved: (input) => {}, //TODO onSaved
-          validator: (input) => null, //TODO Validate the Password input
-          obscureText: store.state.obscurePassword,
-          decoration: InputDecoration(
-            labelText: "Senha",
-            labelStyle: TextStyle(
-              color: Theme.of(context).accentColor,
-            ),
-            contentPadding: EdgeInsets.all(12),
-            hintText: '••••••••••••',
-            hintStyle: TextStyle(
-              color: Theme.of(context).focusColor.withOpacity(0.7),
-            ),
-            prefixIcon: Icon(
-              Icons.lock_outline,
-              color: Theme.of(context).accentColor,
-            ),
-            suffixIcon: IconButton(
-              color: Theme.of(context).focusColor,
-              icon: Icon(Icons.visibility),
-              onPressed: () {
-                store.togglePassword();
-              },
-            ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).focusColor.withOpacity(0.2),
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).focusColor.withOpacity(0.5),
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).focusColor.withOpacity(0.2),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 15),
-        ElevatedButton(
-          onPressed: () {}, //TODO login
-          child: Text("Login"),
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.all(15),
-          ),
-        ),
-        SizedBox(height: 15),
-        OutlinedButton(
-          onPressed: () {
-            Modular.to.navigate('/');
-          },
-          child: Text("Voltar"),
-          style: OutlinedButton.styleFrom(
-            padding: EdgeInsets.all(15),
-          ),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: _background(
-        body: _form(),
+    return Form(
+      key: store.formKey,
+      autovalidateMode: AutovalidateMode.always,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: _background(
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextFormField(
+                controller: store.emailController,
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (!EmailValidator.validate(value!)) {
+                    return 'Digite um e-mail válido';
+                  }
+                },
+                decoration: InputDecoration(
+                  labelText: "E-mail",
+                  labelStyle: TextStyle(
+                    color: Theme.of(context).accentColor,
+                  ),
+                  contentPadding: EdgeInsets.all(12),
+                  hintText: 'email@dominio.com',
+                  prefixIcon: Icon(
+                    Icons.alternate_email,
+                    color: Theme.of(context).accentColor,
+                  ),
+                ),
+              ),
+              SizedBox(height: 16),
+              ScopedBuilder(
+                store: store.passwordObscture,
+                onState: (context, bool state) {
+                  return TextFormField(
+                    controller: store.passwordController,
+                    keyboardType: TextInputType.text,
+                    onSaved: (input) => {}, //TODO onSaved
+                    validator: (input) =>
+                        null, //TODO Validate the Password input
+                    obscureText: store.passwordObscture.state,
+                    decoration: InputDecoration(
+                      labelText: "Senha",
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).accentColor,
+                      ),
+                      contentPadding: EdgeInsets.all(12),
+                      hintText: '••••••••••••',
+                      prefixIcon: Icon(
+                        Icons.lock_outline,
+                        color: Theme.of(context).accentColor,
+                      ),
+                      suffixIcon: IconButton(
+                        color: store.passwordObscture.state
+                            ? Theme.of(context).disabledColor
+                            : Theme.of(context).accentColor,
+                        icon: Icon(store.passwordObscture.state
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined),
+                        onPressed: () {
+                          store.passwordObscture.togglePasswordObscture();
+                        },
+                      ),
+                    ),
+                  );
+                },
+              ),
+              SizedBox(height: 15),
+              ElevatedButton(
+                onPressed: () => store.login(),
+                child: Text("Login"),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.all(15),
+                ),
+              ),
+              SizedBox(height: 15),
+              OutlinedButton(
+                onPressed: store.backToHome,
+                child: Text("Voltar"),
+                style: OutlinedButton.styleFrom(
+                  padding: EdgeInsets.all(15),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

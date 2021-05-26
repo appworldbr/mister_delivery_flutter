@@ -4,6 +4,7 @@ import 'package:mister_delivery_flutter/app/modules/api_uri/get_uri.dart';
 import 'package:mister_delivery_flutter/app/modules/login/domain/errors/errors.dart';
 import 'package:mister_delivery_flutter/app/modules/login/infra/datasources/login_datasource.dart';
 import 'package:mister_delivery_flutter/app/modules/login/infra/models/request/user_login_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MisterDeliveryDatasourceImplementation implements ILoginDatasource {
   final Dio dio;
@@ -13,6 +14,9 @@ class MisterDeliveryDatasourceImplementation implements ILoginDatasource {
   @override
   Future<bool> login(UserLoginModel user) async {
     final uri = Modular.get<UriSingleton>().base;
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('xsrf', '');
 
     await dio.get(uri + "/sanctum/csrf-cookie");
 

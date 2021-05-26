@@ -1,43 +1,53 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:mister_delivery_flutter/app/modules/login/domain/errors/errors.dart';
 import 'package:mister_delivery_flutter/app/modules/login/domain/usecases/login_usecase.dart';
 import 'package:mister_delivery_flutter/app/modules/login/infra/models/request/user_login_model.dart';
+import 'package:mister_delivery_flutter/app/modules/login/presenter/stores/password_obscure_store.dart';
 
-class LoginStoreState {
-  bool obscurePassword;
+// class LoginStoreState {
+//   bool obscurePassword;
 
-  LoginStoreState({
-    required this.obscurePassword,
-  });
-}
+//   LoginStoreState({
+//     required this.obscurePassword,
+//   });
+// }
 
-class LoginStore extends NotifierStore<FailureLogin, LoginStoreState> {
+class LoginStore extends NotifierStore<FailureLogin, bool> {
   final LoginWithEmailUsecase usecase;
+  final PasswordObsctureStore passwordObscture;
 
-  LoginStore(this.usecase) : super(LoginStoreState(obscurePassword: true));
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
-  login(String email, String password) async {
+  LoginStore(this.usecase, this.passwordObscture) : super(false) {
+    emailController.text = 'user@user.com';
+    passwordController.text = 'password';
+  }
+
+  login() async {
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
+
     setLoading(true);
     final result = await usecase(UserLoginModel.fromMap({
-      'email': email,
-      'password': password,
+      'email': emailController.text,
+      'password': passwordController.text,
     }));
-    result.fold(setError, (r) => update(state));
+    result.fold((l) {
+      print(l);
+      setError(l);
+    }, (r) {
+      print(r);
+      update(r);
+    });
     setLoading(false);
   }
 
-  togglePassword() async {
-    print('a');
-    print('a');
-    print('a');
-    print('a');
-    setLoading(true);
-    await Future.delayed(Duration(seconds: 2));
-    // update(loginStoreState.obscurePassword = !loginStoreState.obscurePassword);
-    setLoading(false);
-    print('a');
-    print('a');
-    print('a');
-    print('a');
+  backToHome() {
+    Modular.to.navigate('/');
   }
 }
