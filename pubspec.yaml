@@ -14,9 +14,10 @@ dependencies:
   dartz:
   dio: ^4.0.0
   intl: ^0.17.0
-  shared_preferences: ^2.0.6
   email_validator: ^2.0.1
-  http: ^0.13.3
+  cookie_jar: ^3.0.1
+  path_provider: ^2.0.2
+  dio_cookie_manager: ^2.0.0
 dev_dependencies:
   flutter_modular_test: ^1.0.1
   flutter_test:

@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mister_delivery_flutter/app/modules/api_uri/get_uri.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/errors/errors.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/infra/datasources/get_food_details_datasource.dart';
 
 import 'package:mister_delivery_flutter/app/modules/foods/infra/datasources/search_datasource.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/infra/models/requests/basic_food_model.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/infra/models/requests/food_model.dart';
+import 'package:mister_delivery_flutter/app/shared/url/models/url_singleton.dart';
 
 class MisterDeliveryDatasourceImplementation
     implements ISearchDatasource, IGetFoodDetailsDatasource {
@@ -23,7 +22,7 @@ class MisterDeliveryDatasourceImplementation
     }
 
     final response = await dio.get(
-      Modular.get<UriSingleton>().api + '/food',
+      UrlSingleton().api + '/food',
       queryParameters: queryParams.isNotEmpty ? queryParams : null,
     );
 
@@ -40,8 +39,7 @@ class MisterDeliveryDatasourceImplementation
 
   @override
   Future<FoodModel> getFood(int id) async {
-    final response =
-        await dio.get(Modular.get<UriSingleton>().api + '/food/$id');
+    final response = await dio.get(UrlSingleton().api + '/food/$id');
 
     if (response.statusCode == 200) {
       return FoodModel.fromMap(response.data['food']);

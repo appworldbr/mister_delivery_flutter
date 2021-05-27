@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mister_delivery_flutter/app/modules/api_uri/get_uri.dart';
 import 'package:mister_delivery_flutter/app/modules/config/domain/errors/errors.dart';
 
 import 'package:mister_delivery_flutter/app/modules/config/infra/datasources/config_datasource.dart';
 import 'package:mister_delivery_flutter/app/modules/config/infra/models/config_model.dart';
+import 'package:mister_delivery_flutter/app/shared/url/models/url_singleton.dart';
 
 class MisterDeliveryDatasourceImplementation implements IConfigDatasource {
   final Dio dio;
@@ -14,7 +14,7 @@ class MisterDeliveryDatasourceImplementation implements IConfigDatasource {
   @override
   Future<ConfigModel> getConfig() async {
     final response = await dio.get(
-      Modular.get<UriSingleton>().api + '/settings',
+      UrlSingleton().api + '/settings',
     );
     if (response.statusCode == 200) {
       final configModel = ConfigModel.fromMap(response.data['settings']);

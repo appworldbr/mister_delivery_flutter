@@ -5,10 +5,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular_test/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mister_delivery_flutter/app/app_module.dart';
+import 'package:mister_delivery_flutter/app/modules/config/config_module.dart';
 import 'package:mister_delivery_flutter/app/modules/config/domain/entities/config_entity.dart';
 import 'package:mister_delivery_flutter/app/modules/config/domain/usecases/get_config_usecase.dart';
 import 'package:mister_delivery_flutter/app/modules/config/infra/models/config_model.dart';
+import 'package:mister_delivery_flutter/app/shared/custom_dio/native/custom_dio_native_module.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -19,8 +20,8 @@ import 'mocks/config_mock.dart';
 main() {
   final mockDio = MockDio();
 
-  initModule(
-    AppModule(),
+  initModules(
+    [CustomDioNativeModule(), ConfigModule()],
     replaceBinds: [
       Bind.instance<Dio>(mockDio),
     ],

@@ -6,14 +6,6 @@ import 'package:mister_delivery_flutter/app/modules/login/domain/usecases/login_
 import 'package:mister_delivery_flutter/app/modules/login/infra/models/request/user_login_model.dart';
 import 'package:mister_delivery_flutter/app/modules/login/presenter/stores/password_obscure_store.dart';
 
-// class LoginStoreState {
-//   bool obscurePassword;
-
-//   LoginStoreState({
-//     required this.obscurePassword,
-//   });
-// }
-
 class LoginStore extends NotifierStore<FailureLogin, bool> {
   final LoginWithEmailUsecase usecase;
   final PasswordObsctureStore passwordObscture;
@@ -37,12 +29,8 @@ class LoginStore extends NotifierStore<FailureLogin, bool> {
       'email': emailController.text,
       'password': passwordController.text,
     }));
-    result.fold((l) {
-      print(l);
-      setError(l);
-    }, (r) {
-      print(r);
-      update(r);
+    result.fold(setError, (r) {
+      Modular.to.pop();
     });
     setLoading(false);
   }

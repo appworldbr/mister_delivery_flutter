@@ -1,9 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_modular_test/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mister_delivery_flutter/app/modules/api_uri/get_uri_module.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/errors/errors.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/external/datasources/mister_delivery_datasource_implementation.dart';
 import 'package:mockito/annotations.dart';
@@ -17,8 +15,6 @@ import 'mister_delivery_datasource_implementation_test.mocks.dart';
 main() {
   final dio = MockDio();
   final datasource = MisterDeliveryDatasourceImplementation(dio);
-
-  initModules([GetUriModule()]);
 
   group('ISearchDatasource', () {
     test('should return a list of BasicFoodModel', () {

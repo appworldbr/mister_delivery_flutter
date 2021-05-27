@@ -33,7 +33,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
             backgroundColor: Colors.blue,
           ),
           onPressed: () {
-            Modular.to.navigate(btn['url']!);
+            Modular.to.pushNamed(btn['url']!);
           },
           child: Text(btn['name']!),
         ),

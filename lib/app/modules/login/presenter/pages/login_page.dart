@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
+import 'package:mister_delivery_flutter/app/modules/login/domain/errors/errors.dart';
 import 'package:mister_delivery_flutter/app/modules/login/presenter/stores/login_store.dart';
 
 class LoginPage extends StatefulWidget {
@@ -113,6 +114,18 @@ class _LoginPageState extends ModularState<LoginPage, LoginStore> {
     );
   }
 
+  Widget _buildLoginError(FailureLogin? error) {
+    if (error is FailureLoginDatasource) {
+      return Text(
+        "Credenciais não encontrada",
+        style: TextStyle(color: Colors.red),
+      );
+    }
+    return Center(
+      child: Text("Erro interno, tente novamente mais tarde."),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -125,6 +138,11 @@ class _LoginPageState extends ModularState<LoginPage, LoginStore> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              ScopedBuilder(
+                store: store,
+                onError: (_, FailureLogin? error) => _buildLoginError(error),
+                onState: (context, state) => SizedBox.shrink(),
+              ),
               TextFormField(
                 controller: store.emailController,
                 keyboardType: TextInputType.emailAddress,

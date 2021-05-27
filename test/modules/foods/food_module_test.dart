@@ -5,10 +5,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular_test/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mister_delivery_flutter/app/app_module.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/requests/basic_food_entity.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/usecases/search_by_name_usecase.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/food_module.dart';
+import 'package:mister_delivery_flutter/app/shared/custom_dio/native/custom_dio_native_module.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -20,7 +20,7 @@ main() {
   final mockDio = MockDio();
 
   initModules([
-    AppModule(),
+    CustomDioNativeModule(),
     FoodModule()
   ], replaceBinds: [
     Bind.instance<Dio>(mockDio),
