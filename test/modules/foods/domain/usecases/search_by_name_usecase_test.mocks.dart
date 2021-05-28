@@ -5,7 +5,7 @@
 import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
-import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/requests/basic_food_entity.dart'
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/response/basic_food_entity.dart'
     as _i6;
 import 'package:mister_delivery_flutter/app/modules/foods/domain/errors/errors.dart'
     as _i5;

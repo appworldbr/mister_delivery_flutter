@@ -27,7 +27,7 @@ class CustomDioNative extends DioForNative {
       InterceptorsWrapper(
         onResponse: (response, handler) async {
           final List<Cookie> cookies = await cookiePath.loadForRequest(
-            Uri.parse(UrlSingleton().base),
+            Uri.parse(UrlSingleton().domain),
           );
 
           final String xsrfToken =
@@ -36,8 +36,6 @@ class CustomDioNative extends DioForNative {
           if (xsrfToken.isNotEmpty) {
             options.headers['X-XSRF-TOKEN'] = Uri.decodeComponent(xsrfToken);
           }
-          options.headers['Accept'] = "application/json";
-          options.headers['Content-Type'] = "application/json";
 
           return handler.next(response);
         },

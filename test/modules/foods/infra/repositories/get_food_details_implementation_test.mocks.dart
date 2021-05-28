@@ -4,11 +4,11 @@
 
 import 'dart:async' as _i5;
 
-import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/requests/extra_entity.dart'
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/response/extra_entity.dart'
     as _i3;
 import 'package:mister_delivery_flutter/app/modules/foods/infra/datasources/get_food_details_datasource.dart'
     as _i4;
-import 'package:mister_delivery_flutter/app/modules/foods/infra/models/requests/food_model.dart'
+import 'package:mister_delivery_flutter/app/modules/foods/infra/models/response/food_model.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 

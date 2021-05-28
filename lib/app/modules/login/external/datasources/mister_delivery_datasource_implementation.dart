@@ -13,10 +13,10 @@ class MisterDeliveryDatasourceImplementation implements ILoginDatasource {
   Future<bool> login(UserLoginModel user) async {
     final urlSingleton = UrlSingleton();
 
-    await dio.get(urlSingleton.base + "/sanctum/csrf-cookie");
+    await dio.get(urlSingleton.domain + "/sanctum/csrf-cookie");
 
     final response =
-        await dio.post(urlSingleton.base + "/app/login", data: user.toJson());
+        await dio.post(urlSingleton.api + "/user/login", data: user.toJson());
 
     if (response.statusCode == 200) {
       return true;

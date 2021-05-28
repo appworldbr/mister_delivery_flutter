@@ -1,15 +1,15 @@
 import 'dart:convert';
 
-import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/requests/basic_food_entity.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/response/basic_food_entity.dart';
 
 class BasicFoodModel extends BasicFoodEntity {
   BasicFoodModel({
-    required id,
-    required imageUrl,
-    required name,
-    required price,
-    required description,
-    required hasDetails,
+    required int id,
+    required String imageUrl,
+    required String name,
+    required num price,
+    required String description,
+    required bool hasDetails,
   }) : super(
           id: id,
           imageUrl: imageUrl,

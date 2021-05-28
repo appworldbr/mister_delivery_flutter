@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/requests/extra_entity.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/response/extra_entity.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/presenter/stores/details_store.dart';
+import 'package:mister_delivery_flutter/app/shared/components/mister_delivery_counter.dart';
 
 class DetailsPage extends StatefulWidget {
   final String id;
@@ -149,7 +150,11 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
   Widget _additionCard(ExtraEntity extra) {
     Widget _selector;
     if (extra.limit > 1) {
-      _selector = Text('counter');
+      _selector = MisterDeliveryCounter(
+        number: '2',
+        addButtonPressed: () {},
+        subtractButtonPressed: () {},
+      );
     } else {
       _selector = Checkbox(
         onChanged: (bool? value) {},

@@ -1,5 +1,5 @@
 class UrlEntity {
-  String base;
+  String domain;
   String api;
-  UrlEntity({required this.api, required this.base});
+  UrlEntity({required this.domain, required this.api});
 }

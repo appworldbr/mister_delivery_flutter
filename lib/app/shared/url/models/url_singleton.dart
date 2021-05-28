@@ -7,6 +7,6 @@ class UrlSingleton {
 
   UrlSingleton._internal();
 
-  String api = 'a';
-  String base = 'b';
+  String domain = '';
+  String api = '';
 }

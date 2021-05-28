@@ -11,6 +11,6 @@ class UrlWeb {
     ));
     final singleton = UrlSingleton();
     singleton.api = url.api;
-    singleton.base = url.base;
+    singleton.domain = url.domain;
   }
 }

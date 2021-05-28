@@ -7,8 +7,8 @@ class UrlNativeModule extends Module {
   final List<Bind> binds = [
     Bind.singleton(
       (i) => UrlModel(
-        base: 'http://localhost',
-        api: 'http://localhost/api/v1',
+        domain: 'http://10.0.0.2',
+        api: 'http://10.0.0.2/api/v1',
       ),
       export: true,
     ),

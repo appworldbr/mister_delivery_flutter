@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:mister_delivery_flutter/app/shared/url/entities/url_entity.dart';
 
 class UrlModel extends UrlEntity {
-  String base;
+  String domain;
   String api;
-  UrlModel({required this.api, required this.base})
-      : super(api: api, base: base);
+  UrlModel({required this.api, required this.domain})
+      : super(api: api, domain: domain);
 
   factory UrlModel.fromMap(Map<String, dynamic> map) {
     return UrlModel(
-      base: map['base'],
+      domain: map['domain'],
       api: map['api'],
     );
   }

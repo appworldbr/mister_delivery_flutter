@@ -8,6 +8,7 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Slidy',
       theme: ThemeSwitcher.of(context).themeData,
+      initialRoute: '/foods/10',
     ).modular();
   }
 }

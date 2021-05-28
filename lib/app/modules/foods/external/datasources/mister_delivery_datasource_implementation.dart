@@ -1,14 +1,20 @@
 import 'package:dio/dio.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_food_entity.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/errors/errors.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/infra/datasources/add_food_to_cart_datasource.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/infra/datasources/get_food_details_datasource.dart';
 
 import 'package:mister_delivery_flutter/app/modules/foods/infra/datasources/search_datasource.dart';
-import 'package:mister_delivery_flutter/app/modules/foods/infra/models/requests/basic_food_model.dart';
-import 'package:mister_delivery_flutter/app/modules/foods/infra/models/requests/food_model.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/infra/models/requests/cart_food_model.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/infra/models/response/basic_food_model.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/infra/models/response/food_model.dart';
 import 'package:mister_delivery_flutter/app/shared/url/models/url_singleton.dart';
 
 class MisterDeliveryDatasourceImplementation
-    implements ISearchDatasource, IGetFoodDetailsDatasource {
+    implements
+        ISearchDatasource,
+        IGetFoodDetailsDatasource,
+        IAddFoodToCartDatasource {
   final Dio dio;
 
   MisterDeliveryDatasourceImplementation(this.dio);
@@ -46,5 +52,34 @@ class MisterDeliveryDatasourceImplementation
     }
 
     throw FailureFoodDatasource();
+  }
+
+  @override
+  Future<bool> addFoodToCart(CartFoodEntity food) async {
+    final response = await dio.post(
+      UrlSingleton().api + '/cart',
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+
+    if (response.statusCode == 430) {
+      throw FailureFoodNotFound();
+    }
+
+    if (response.statusCode == 431) {
+      throw FailureFoodNotActive();
+    }
+
+    if (response.statusCode == 432) {
+      throw FailureExtraNotFound();
+    }
+
+    if (response.statusCode == 433) {
+      throw FailureExtraLimitReached();
+    }
+
+    throw FailureAddFoodToCart();
   }
 }

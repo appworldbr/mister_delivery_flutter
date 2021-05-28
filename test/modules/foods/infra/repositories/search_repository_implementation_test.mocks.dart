@@ -6,7 +6,7 @@ import 'dart:async' as _i3;
 
 import 'package:mister_delivery_flutter/app/modules/foods/infra/datasources/search_datasource.dart'
     as _i2;
-import 'package:mister_delivery_flutter/app/modules/foods/infra/models/requests/basic_food_model.dart'
+import 'package:mister_delivery_flutter/app/modules/foods/infra/models/response/basic_food_model.dart'
     as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
