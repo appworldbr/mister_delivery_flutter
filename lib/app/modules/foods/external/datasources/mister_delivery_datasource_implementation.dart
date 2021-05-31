@@ -58,6 +58,7 @@ class MisterDeliveryDatasourceImplementation
   Future<bool> addFoodToCart(CartFoodEntity food) async {
     final response = await dio.post(
       UrlSingleton().api + '/cart',
+      data: (food as CartFoodModel).toJson(),
     );
 
     if (response.statusCode == 200) {

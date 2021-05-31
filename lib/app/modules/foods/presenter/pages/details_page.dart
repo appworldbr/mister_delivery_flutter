@@ -1,7 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_triple/flutter_triple.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_extra_entity.dart';
 
 import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/response/extra_entity.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/response/food_entity.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/infra/models/response/extra_model.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/presenter/stores/details_store.dart';
 import 'package:mister_delivery_flutter/app/shared/components/mister_delivery_counter.dart';
 
@@ -18,79 +23,126 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
-  Widget _buildFutureBuilderError() {
-    return Center(
-      child: Text("Erro interno"),
-    );
-  }
+  // Widget _buildFutureBuilderError() {
+  //   return Center(
+  //     child: Text("Erro interno"),
+  //   );
+  // }
 
-  Widget _buildLoading() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
-  }
+  // Widget _buildLoading() {
+  //   return Center(
+  //     child: CircularProgressIndicator(),
+  //   );
+  // }
 
-  Widget _foodImage(imageUrl) {
-    return Container(
-      width: double.infinity,
-      height: 250,
-      child: FittedBox(
-        clipBehavior: Clip.hardEdge,
-        alignment: Alignment.bottomCenter,
-        fit: BoxFit.cover,
-        child: Image.network(
-          imageUrl,
-        ),
-      ),
-    );
-  }
+  // Widget _buildList(List<CartExtraEntity> state) {
+  //   return ListView.builder(
+  //       shrinkWrap: true,
+  //       itemCount: state.length,
+  //       itemBuilder: (_, index) {
+  //         final extra = store.state.food.extras
+  //             .firstWhere((_e) => _e.id == state[index].id);
+  //         return _additionCard(extra, state[index].quantity);
+  //       });
+  // }
 
-  Widget _foodInfo(name, price, description) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  // Widget _foodImage(imageUrl) {
+  //   return Container(
+  //     width: double.infinity,
+  //     height: 250,
+  //     child: FittedBox(
+  //       clipBehavior: Clip.hardEdge,
+  //       alignment: Alignment.bottomCenter,
+  //       fit: BoxFit.cover,
+  //       child: Image.network(
+  //         imageUrl,
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Widget _foodInfo(name, price, description) {
+  //   return Padding(
+  //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  //     child: Column(
+  //       children: [
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             Padding(
+  //               padding: const EdgeInsets.symmetric(vertical: 10),
+  //               child: Text(
+  //                 name,
+  //                 style: TextStyle(
+  //                   fontSize: 20,
+  //                   fontWeight: FontWeight.w500,
+  //                 ),
+  //               ),
+  //             ),
+  //             Text(
+  //               price,
+  //               style: TextStyle(
+  //                 fontSize: 20,
+  //                 fontWeight: FontWeight.bold,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: [
+  //             Text(
+  //               "Descrição:",
+  //               style: TextStyle(
+  //                 fontWeight: FontWeight.w500,
+  //               ),
+  //             ),
+  //             Text(description)
+  //           ],
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  // Widget _observationArea() {
+  //   return Card(
+  //     margin: EdgeInsets.all(20),
+  //     child: Padding(
+  //       padding: EdgeInsets.all(8),
+  //       child: TextField(
+  //         maxLines: 8,
+  //         decoration: InputDecoration.collapsed(
+  //           hintText: "Observações",
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  Widget _buildDetails() {
+    return SingleChildScrollView(
       child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Text(
-                  name,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              Text(
-                price,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Descrição:",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Text(description)
-            ],
-          )
+        children: <Widget>[
+          _additions(),
+          // _foodImage(food.imageUrl),
+          // _foodInfo(food.name, food.priceFormatted, food.description),
+          // Divider(),
+          // ScopedBuilder(
+          //   store: store.extraStore,
+          //   onError: (context, error) => Text('a'),
+          //   onLoading: (context) => CircularProgressIndicator(),
+          //   onState: (context, state) => _additions(),
+          // ),
+          // Divider(),
+          // _observationArea(),
         ],
       ),
     );
   }
 
-  Widget _additions(List<ExtraEntity> extras) {
-    if (extras.isEmpty) {
+  Widget _additions() {
+    if (store.state.extras.isEmpty) {
       return Text("Não há extra");
     }
 
@@ -98,49 +150,41 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Column(
         children: [
-          _additionTitle(),
-          Column(
-            children: [
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: extras.length,
-                itemBuilder: (context, index) {
-                  return _additionCard(extras[index]);
-                },
-              ),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _additionTitle() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Row(
-        children: [
-          Icon(Icons.add_circle_outline),
           Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Row(
               children: [
-                Text(
-                  "Adicionais",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    height: 1.2,
+                Icon(Icons.add_circle_outline),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Adicionais",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          height: 1.2,
+                        ),
+                      ),
+                      Text(
+                        "Selecione seus adicionais",
+                        style: TextStyle(
+                          height: 1.2,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Text(
-                  "Selecione seus adicionais",
-                  style: TextStyle(
-                    height: 1.2,
-                  ),
-                ),
+                )
               ],
             ),
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: store.state.extras.length,
+            itemBuilder: (context, index) {
+              return _additionCard(store.state.extras[index]);
+            },
           )
         ],
       ),
@@ -149,16 +193,35 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
 
   Widget _additionCard(ExtraEntity extra) {
     Widget _selector;
+
     if (extra.limit > 1) {
-      _selector = MisterDeliveryCounter(
-        number: '2',
-        addButtonPressed: () {},
-        subtractButtonPressed: () {},
+      _selector = ScopedBuilder(
+        store: store.extraStore,
+        onState: (context, state) {
+          final quantity = store.extraStore.state
+              .firstWhere((e) => e.id == extra.id)
+              .quantity;
+          return MisterDeliveryCounter(
+            number: quantity,
+            addButtonPressed: () => store.extraStore.incrementQuantity(extra),
+            subtractButtonPressed: () =>
+                store.extraStore.decrementQuantity(extra),
+          );
+        },
       );
     } else {
-      _selector = Checkbox(
-        onChanged: (bool? value) {},
-        value: true,
+      _selector = ScopedBuilder(
+        store: store.extraStore,
+        onState: (context, state) {
+          final quantity = store.extraStore.state
+              .firstWhere((e) => e.id == extra.id)
+              .quantity;
+          return Checkbox(
+            value: quantity == 1,
+            onChanged: (bool? value) =>
+                store.extraStore.toggleExtra(value, extra),
+          );
+        },
       );
     }
 
@@ -191,130 +254,6 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
     );
   }
 
-  Widget _observationArea() {
-    return Card(
-      margin: EdgeInsets.all(20),
-      child: Padding(
-        padding: EdgeInsets.all(8),
-        child: TextField(
-          maxLines: 8,
-          decoration: InputDecoration.collapsed(
-            hintText: "Observações",
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDetails(DetailsStoreState details) {
-    final food = details.food!;
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          _foodImage(food.imageUrl),
-          _foodInfo(food.name, food.priceFormatted, food.description),
-          Divider(),
-          _additions(food.extras),
-          Divider(),
-          _observationArea(),
-        ],
-      ),
-    );
-  }
-
-  Widget _bottomNavigationBar(context) {
-    return BottomAppBar(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 20,
-        ),
-        child: Container(
-          height: 110,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Quantidade:",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  //TODO
-                  // Container(
-                  //   transform: Matrix4.translationValues(13, 0, 0),
-                  //   child: MDCounter(),
-                  // ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: 38,
-                    height: 38,
-                    child: Ink(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.red,
-                          width: 2,
-                        ),
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: IconButton(
-                        color: Colors.red,
-                        icon: Icon(
-                          Icons.favorite,
-                          size: 17,
-                        ),
-                        onPressed: () {}, //TODO ACTION
-                      ),
-                    ),
-                  ),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      backgroundColor: Theme.of(context).primaryColor,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 5,
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Adicionar no carrinho",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          "R\$ 20,00",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                    onPressed: () {}, //TODO ACTION
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -325,19 +264,107 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
           onPressed: () => Modular.to.pop(),
         ),
       ),
-      body: FutureBuilder(
-        future: store.fetchTheFoodDetails(int.parse(widget.id)),
-        builder: (context, snapshop) {
-          if (snapshop.connectionState == ConnectionState.done) {
-            if (snapshop.hasError) {
-              return _buildFutureBuilderError();
-            }
-            return _buildDetails(store.state);
+      body: ScopedBuilder(
+        store: store,
+        onError: (context, error) => Text('err'),
+        onLoading: (context) => Text('loa'),
+        onState: (context, FoodEntity state) {
+          if (state.id == 0) {
+            store.fetchTheFoodDetails(int.parse(widget.id));
           }
-          return _buildLoading();
+          return _buildDetails();
         },
       ),
-      bottomNavigationBar: _bottomNavigationBar(context),
+      bottomNavigationBar: BottomAppBar(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 20,
+          ),
+          child: Container(
+            height: 110,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Quantidade:",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    //TODO
+                    // Container(
+                    //   transform: Matrix4.translationValues(13, 0, 0),
+                    //   child: MDCounter(),
+                    // ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 38,
+                      height: 38,
+                      child: Ink(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.red,
+                            width: 2,
+                          ),
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: IconButton(
+                          color: Colors.red,
+                          icon: Icon(
+                            Icons.favorite,
+                            size: 17,
+                          ),
+                          onPressed: () {}, //TODO ACTION
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        backgroundColor: Theme.of(context).primaryColor,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 5,
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Adicionar no carrinho",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            "R\$ 20,00",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                      onPressed: () {}, //TODO ACTION
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

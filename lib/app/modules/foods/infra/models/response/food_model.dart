@@ -20,6 +20,18 @@ class FoodModel extends FoodEntity {
           extras: extras,
         );
 
+  factory FoodModel.empty() {
+    return FoodModel(
+      id: 0,
+      imageUrl: '',
+      name: '',
+      price: 0,
+      description: '',
+      hasDetails: false,
+      extras: [],
+    );
+  }
+
   factory FoodModel.fromMap(Map<String, dynamic> map) {
     return FoodModel(
       id: map['id'],

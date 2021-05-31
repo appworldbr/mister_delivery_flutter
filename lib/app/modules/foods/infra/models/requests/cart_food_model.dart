@@ -16,6 +16,15 @@ class CartFoodModel extends CartFoodEntity {
           observation: observation,
         );
 
+  factory CartFoodModel.empty() {
+    return CartFoodModel(
+      id: 0,
+      quantity: 0,
+      extras: [],
+      observation: '',
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,

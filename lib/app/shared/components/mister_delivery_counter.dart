@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class MisterDeliveryCounter extends StatelessWidget {
-  final String number;
+  final int number;
   final VoidCallback addButtonPressed;
   final VoidCallback subtractButtonPressed;
   const MisterDeliveryCounter({
@@ -21,7 +21,7 @@ class MisterDeliveryCounter extends StatelessWidget {
           onPressed: subtractButtonPressed,
           color: Theme.of(context).primaryColor,
         ),
-        Text(number),
+        Text(number.toString()),
         IconButton(
           icon: Icon(Icons.add_circle),
           onPressed: addButtonPressed,
