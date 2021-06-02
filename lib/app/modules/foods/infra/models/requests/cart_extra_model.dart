@@ -11,6 +11,13 @@ class CartExtraModel extends CartExtraEntity {
           quantity: quantity,
         );
 
+  copyWith({int? id, int? quantity}) {
+    return CartExtraModel(
+      id: id ?? this.id,
+      quantity: quantity ?? this.quantity,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,

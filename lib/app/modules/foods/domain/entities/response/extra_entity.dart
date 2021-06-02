@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 class ExtraEntity {
   final int id;
   final String name;
@@ -12,10 +10,4 @@ class ExtraEntity {
     required this.price,
     required this.limit,
   });
-
-  String get priceFormatted {
-    final priceBrazilFormat =
-        NumberFormat.currency(locale: "pt_BR", symbol: "R\$");
-    return priceBrazilFormat.format(price);
-  }
 }

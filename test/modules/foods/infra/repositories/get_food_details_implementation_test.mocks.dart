@@ -54,10 +54,6 @@ class MockFoodModel extends _i1.Mock implements _i2.FoodModel {
   List<_i3.ExtraEntity> get extras =>
       (super.noSuchMethod(Invocation.getter(#extras),
           returnValue: <_i3.ExtraEntity>[]) as List<_i3.ExtraEntity>);
-  @override
-  String get priceFormatted =>
-      (super.noSuchMethod(Invocation.getter(#priceFormatted), returnValue: '')
-          as String);
 }
 
 /// A class which mocks [IGetFoodDetailsDatasource].

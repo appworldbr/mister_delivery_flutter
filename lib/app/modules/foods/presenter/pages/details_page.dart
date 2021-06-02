@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_extra_entity.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_food_entity.dart';
 
 import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/response/extra_entity.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/response/food_entity.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/infra/models/response/extra_model.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/infra/models/response/food_model.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/presenter/stores/details_store.dart';
 import 'package:mister_delivery_flutter/app/shared/components/mister_delivery_counter.dart';
+import 'package:mister_delivery_flutter/app/shared/helpers.dart';
 
 class DetailsPage extends StatefulWidget {
   final String id;
@@ -23,121 +26,84 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
-  // Widget _buildFutureBuilderError() {
-  //   return Center(
-  //     child: Text("Erro interno"),
-  //   );
-  // }
+  Widget _buildError() {
+    return Center(
+      child: Text("Erro interno"),
+    );
+  }
 
-  // Widget _buildLoading() {
-  //   return Center(
-  //     child: CircularProgressIndicator(),
-  //   );
-  // }
-
-  // Widget _buildList(List<CartExtraEntity> state) {
-  //   return ListView.builder(
-  //       shrinkWrap: true,
-  //       itemCount: state.length,
-  //       itemBuilder: (_, index) {
-  //         final extra = store.state.food.extras
-  //             .firstWhere((_e) => _e.id == state[index].id);
-  //         return _additionCard(extra, state[index].quantity);
-  //       });
-  // }
-
-  // Widget _foodImage(imageUrl) {
-  //   return Container(
-  //     width: double.infinity,
-  //     height: 250,
-  //     child: FittedBox(
-  //       clipBehavior: Clip.hardEdge,
-  //       alignment: Alignment.bottomCenter,
-  //       fit: BoxFit.cover,
-  //       child: Image.network(
-  //         imageUrl,
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Widget _foodInfo(name, price, description) {
-  //   return Padding(
-  //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-  //     child: Column(
-  //       children: [
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: [
-  //             Padding(
-  //               padding: const EdgeInsets.symmetric(vertical: 10),
-  //               child: Text(
-  //                 name,
-  //                 style: TextStyle(
-  //                   fontSize: 20,
-  //                   fontWeight: FontWeight.w500,
-  //                 ),
-  //               ),
-  //             ),
-  //             Text(
-  //               price,
-  //               style: TextStyle(
-  //                 fontSize: 20,
-  //                 fontWeight: FontWeight.bold,
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         Column(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             Text(
-  //               "Descrição:",
-  //               style: TextStyle(
-  //                 fontWeight: FontWeight.w500,
-  //               ),
-  //             ),
-  //             Text(description)
-  //           ],
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // Widget _observationArea() {
-  //   return Card(
-  //     margin: EdgeInsets.all(20),
-  //     child: Padding(
-  //       padding: EdgeInsets.all(8),
-  //       child: TextField(
-  //         maxLines: 8,
-  //         decoration: InputDecoration.collapsed(
-  //           hintText: "Observações",
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  Widget _buildDetails() {
+  Widget _buildDetails(FoodEntity food) {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
+          _foodImage(food.imageUrl),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Text(
+                        food.name,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      formatPrice(food.price),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Descrição:",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(food.description)
+                  ],
+                )
+              ],
+            ),
+          ),
+          Divider(),
           _additions(),
-          // _foodImage(food.imageUrl),
-          // _foodInfo(food.name, food.priceFormatted, food.description),
-          // Divider(),
-          // ScopedBuilder(
-          //   store: store.extraStore,
-          //   onError: (context, error) => Text('a'),
-          //   onLoading: (context) => CircularProgressIndicator(),
-          //   onState: (context, state) => _additions(),
-          // ),
-          // Divider(),
-          // _observationArea(),
+          _observationArea(),
         ],
       ),
+    );
+  }
+
+  Widget _foodImage(String imageUrl) {
+    Widget child;
+
+    child = imageUrl.length == 0
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : FittedBox(
+            clipBehavior: Clip.hardEdge,
+            alignment: Alignment.bottomCenter,
+            fit: BoxFit.cover,
+            child: Image.network(imageUrl),
+          );
+
+    return Container(
+      width: double.infinity,
+      height: 250,
+      child: child,
     );
   }
 
@@ -244,7 +210,7 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                Text("+ ${extra.priceFormatted}"),
+                Text("+ ${formatPrice(extra.price)}"),
               ],
             ),
             _selector,
@@ -254,8 +220,31 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
     );
   }
 
+  Widget _observationArea() {
+    return Card(
+      margin: EdgeInsets.all(20),
+      child: Padding(
+        padding: EdgeInsets.all(8),
+        child: TextField(
+          maxLines: 8,
+          decoration: InputDecoration.collapsed(
+            hintText: "Observações",
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    store.cartStore.selectState.addListener(() {
+      store.updatePrice();
+    });
+
+    store.extraStore.selectState.addListener(() {
+      store.updatePrice();
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Mister Delivery"),
@@ -266,13 +255,13 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
       ),
       body: ScopedBuilder(
         store: store,
-        onError: (context, error) => Text('err'),
-        onLoading: (context) => Text('loa'),
+        onError: (context, error) => _buildError(),
+        onLoading: (context) => Center(child: CircularProgressIndicator()),
         onState: (context, FoodEntity state) {
           if (state.id == 0) {
             store.fetchTheFoodDetails(int.parse(widget.id));
           }
-          return _buildDetails();
+          return _buildDetails(state);
         },
       ),
       bottomNavigationBar: BottomAppBar(
@@ -294,11 +283,20 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    //TODO
-                    // Container(
-                    //   transform: Matrix4.translationValues(13, 0, 0),
-                    //   child: MDCounter(),
-                    // ),
+                    Container(
+                      transform: Matrix4.translationValues(13, 0, 0),
+                      child: ScopedBuilder(
+                        store: store.cartStore,
+                        onState: (_, CartFoodEntity state) =>
+                            MisterDeliveryCounter(
+                          number: state.quantity,
+                          addButtonPressed: () =>
+                              store.cartStore.incrementQuantity(),
+                          subtractButtonPressed: () =>
+                              store.cartStore.decrementQuantity(),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 Row(
@@ -348,12 +346,15 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
                           SizedBox(
                             width: 20,
                           ),
-                          Text(
-                            "R\$ 20,00",
-                            style: TextStyle(
-                              color: Colors.white,
+                          ScopedBuilder(
+                            store: store.priceStore,
+                            onState: (_, num state) => Text(
+                              formatPrice(state),
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
+                          )
                         ],
                       ),
                       onPressed: () {}, //TODO ACTION

@@ -17,7 +17,8 @@ class ExtraStore extends NotifierStore<FailureFood, List<CartExtraEntity>> {
     final newList = List<CartExtraEntity>.from(state);
     final index = newList.indexWhere((_extra) => _extra.id == extra.id);
     final extra$ = newList[index];
-    newList[index] = extra$.copyWith(quantity: value == true ? 1 : 0);
+    newList[index] =
+        (extra$ as CartExtraModel).copyWith(quantity: value == true ? 1 : 0);
     update(newList);
   }
 
@@ -26,7 +27,8 @@ class ExtraStore extends NotifierStore<FailureFood, List<CartExtraEntity>> {
     final index = newList.indexWhere((_extra) => _extra.id == extra.id);
     final extra$ = newList[index];
     if (extra$.quantity < extra.limit) {
-      newList[index] = extra$.copyWith(quantity: extra$.quantity + 1);
+      newList[index] =
+          (extra$ as CartExtraModel).copyWith(quantity: extra$.quantity + 1);
     }
     update(newList);
   }
@@ -36,8 +38,16 @@ class ExtraStore extends NotifierStore<FailureFood, List<CartExtraEntity>> {
     final index = newList.indexWhere((_extra) => _extra.id == extra.id);
     final extra$ = newList[index];
     if (extra$.quantity > 0) {
-      newList[index] = extra$.copyWith(quantity: extra$.quantity - 1);
+      newList[index] =
+          (extra$ as CartExtraModel).copyWith(quantity: extra$.quantity - 1);
     }
     update(newList);
+  }
+
+  getExtraTotal() {
+    state.forEach((element) {
+      print(element.quantity);
+    });
+    return "dinheiro";
   }
 }

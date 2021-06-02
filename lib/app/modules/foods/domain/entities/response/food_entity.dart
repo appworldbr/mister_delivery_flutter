@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 import 'extra_entity.dart';
 
 class FoodEntity {
@@ -20,22 +18,4 @@ class FoodEntity {
     required this.hasDetails,
     required this.extras,
   });
-
-  factory FoodEntity.empty() {
-    return FoodEntity(
-      id: 0,
-      name: '',
-      price: 0,
-      imageUrl: '',
-      hasDetails: false,
-      extras: [],
-      description: '',
-    );
-  }
-
-  String get priceFormatted {
-    final priceBrazilFormat =
-        NumberFormat.currency(locale: "pt_BR", symbol: "R\$");
-    return priceBrazilFormat.format(price);
-  }
 }

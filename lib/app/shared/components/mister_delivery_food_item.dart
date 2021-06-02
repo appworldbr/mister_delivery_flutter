@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/response/basic_food_entity.dart';
+import 'package:mister_delivery_flutter/app/shared/helpers.dart';
 
 class MisterDeliveryFoodItem extends StatelessWidget {
   final BasicFoodEntity food;
@@ -15,7 +16,7 @@ class MisterDeliveryFoodItem extends StatelessWidget {
   Widget _priceAndCounter() {
     List<Widget> _row = [
       Text(
-        food.priceFormatted,
+        formatPrice(food.price),
         style: TextStyle(
           fontWeight: FontWeight.bold,
         ),

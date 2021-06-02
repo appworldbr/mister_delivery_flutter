@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 class BasicFoodEntity {
   final int id;
   final String imageUrl;
@@ -16,10 +14,4 @@ class BasicFoodEntity {
     required this.description,
     required this.hasDetails,
   });
-
-  String get priceFormatted {
-    final priceBrazilFormat =
-        NumberFormat.currency(locale: "pt_BR", symbol: "R\$");
-    return priceBrazilFormat.format(price);
-  }
 }

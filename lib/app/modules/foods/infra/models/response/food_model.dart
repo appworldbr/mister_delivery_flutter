@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/response/food_entity.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/infra/models/response/extra_model.dart';
 
@@ -23,12 +24,12 @@ class FoodModel extends FoodEntity {
   factory FoodModel.empty() {
     return FoodModel(
       id: 0,
-      imageUrl: '',
       name: '',
       price: 0,
-      description: '',
+      imageUrl: '',
       hasDetails: false,
       extras: [],
+      description: '',
     );
   }
 

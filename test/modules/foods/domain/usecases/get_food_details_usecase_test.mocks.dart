@@ -57,10 +57,6 @@ class MockFoodEntity extends _i1.Mock implements _i3.FoodEntity {
   List<_i4.ExtraEntity> get extras =>
       (super.noSuchMethod(Invocation.getter(#extras),
           returnValue: <_i4.ExtraEntity>[]) as List<_i4.ExtraEntity>);
-  @override
-  String get priceFormatted =>
-      (super.noSuchMethod(Invocation.getter(#priceFormatted), returnValue: '')
-          as String);
 }
 
 /// A class which mocks [IGetFoodDetailsRepository].
