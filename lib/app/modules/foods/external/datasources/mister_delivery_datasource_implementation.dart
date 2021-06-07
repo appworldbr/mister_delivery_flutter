@@ -56,31 +56,30 @@ class MisterDeliveryDatasourceImplementation
 
   @override
   Future<bool> addFoodToCart(CartFoodEntity food) async {
+    food as CartFoodModel;
+
     final response = await dio.post(
       UrlSingleton().api + '/cart',
-      data: (food as CartFoodModel).toJson(),
+      data: food.toJson(),
     );
-
+    
     if (response.statusCode == 200) {
       return true;
     }
 
-    if (response.statusCode == 430) {
-      throw FailureFoodNotFound();
+    switch (response.statusCode) {
+      case (401):
+        throw FailureLoginRequired();
+      case (430):
+        throw FailureFoodNotFound();
+      case (431):
+        throw FailureFoodNotActive();
+      case (432):
+        throw FailureExtraNotFound();
+      case (433):
+        throw FailureExtraLimitReached();
+      default:
+        throw FailureAddFoodToCart();
     }
-
-    if (response.statusCode == 431) {
-      throw FailureFoodNotActive();
-    }
-
-    if (response.statusCode == 432) {
-      throw FailureExtraNotFound();
-    }
-
-    if (response.statusCode == 433) {
-      throw FailureExtraLimitReached();
-    }
-
-    throw FailureAddFoodToCart();
   }
 }

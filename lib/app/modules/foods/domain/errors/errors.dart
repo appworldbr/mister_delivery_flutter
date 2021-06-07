@@ -1,5 +1,7 @@
 abstract class FailureFood implements Exception {}
 
+class FailureLoginRequired implements FailureFood {}
+
 class FailureFoodSearch implements FailureFood {}
 
 class FailureFoodDatasource implements FailureFood {}

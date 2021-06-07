@@ -4,10 +4,10 @@ import 'package:dartz/dartz.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/repositories/add_food_to_cart_repository.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/infra/datasources/add_food_to_cart_datasource.dart';
 
-class AddFoodToCartImplementation extends IAddFoodToCartRepository {
+class AddFoodToCartRepositoryImplementation extends IAddFoodToCartRepository {
   IAddFoodToCartDatasource datasource;
 
-  AddFoodToCartImplementation(this.datasource);
+  AddFoodToCartRepositoryImplementation(this.datasource);
 
   @override
   Future<Either<FailureFood, bool>> addFoodToCart(CartFoodEntity food) async {

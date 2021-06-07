@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_triple/flutter_triple.dart';
 import 'package:mister_delivery_flutter/app/modules/theme/theme_switcher.dart';
 import 'home_store.dart';
 

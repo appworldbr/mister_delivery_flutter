@@ -2,13 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
-import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_extra_entity.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_food_entity.dart';
 
 import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/response/extra_entity.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/response/food_entity.dart';
-import 'package:mister_delivery_flutter/app/modules/foods/infra/models/response/extra_model.dart';
-import 'package:mister_delivery_flutter/app/modules/foods/infra/models/response/food_model.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/presenter/stores/details_store.dart';
 import 'package:mister_delivery_flutter/app/shared/components/mister_delivery_counter.dart';
 import 'package:mister_delivery_flutter/app/shared/helpers.dart';
@@ -225,7 +222,8 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
       margin: EdgeInsets.all(20),
       child: Padding(
         padding: EdgeInsets.all(8),
-        child: TextField(
+        child: TextFormField(
+          controller: store.observationController,
           maxLines: 8,
           decoration: InputDecoration.collapsed(
             hintText: "Observações",
@@ -357,7 +355,7 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
                           )
                         ],
                       ),
-                      onPressed: () {}, //TODO ACTION
+                      onPressed: () => store.addToCart(),
                     )
                   ],
                 ),

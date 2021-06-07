@@ -43,11 +43,4 @@ class ExtraStore extends NotifierStore<FailureFood, List<CartExtraEntity>> {
     }
     update(newList);
   }
-
-  getExtraTotal() {
-    state.forEach((element) {
-      print(element.quantity);
-    });
-    return "dinheiro";
-  }
 }

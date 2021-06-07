@@ -1,24 +1,33 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/response/food_entity.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/errors/errors.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/domain/usecases/add_food_to_cart_usecase.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/usecases/get_food_details_usecase.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/infra/models/requests/cart_food_model.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/infra/models/response/food_model.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/presenter/stores/cart_store.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/presenter/stores/extra_store.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/presenter/stores/price_store.dart';
 
 class DetailsStore extends NotifierStore<FailureFood, FoodEntity> {
-  final GetFoodDetailsUsecase usecase;
+  final GetFoodDetailsUsecase getFoodDetailsUsecase;
+  final AddFoodToCartUsecase addFoodToCartUsecase;
 
   final CartStore cartStore = CartStore();
   final ExtraStore extraStore = ExtraStore();
   final PriceStore priceStore = PriceStore();
 
-  DetailsStore(this.usecase) : super(FoodModel.empty());
+  final TextEditingController observationController = TextEditingController();
+
+  DetailsStore(
+    this.getFoodDetailsUsecase,
+    this.addFoodToCartUsecase,
+  ) : super(FoodModel.empty());
 
   fetchTheFoodDetails(int id) async {
     setLoading(true);
-    final result = await this.usecase(id);
+    final result = await this.getFoodDetailsUsecase(id);
     result.fold(setError, (food) {
       cartStore.setId(food.id);
       food.extras.forEach((_extra) {
@@ -51,5 +60,14 @@ class DetailsStore extends NotifierStore<FailureFood, FoodEntity> {
     });
 
     return extraPrices.reduce((value, element) => value + element);
+  }
+
+  addToCart() async {
+    final foodToCart = (cartStore.state as CartFoodModel).copyWith(
+      extras: extraStore.state.where((extra) => extra.quantity > 0).toList(),
+      observation: observationController.text,
+    );
+    await addFoodToCartUsecase(foodToCart);
+    //TODO redirect to cart or show message
   }
 }

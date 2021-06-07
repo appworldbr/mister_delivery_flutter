@@ -4,10 +4,10 @@ import 'package:dartz/dartz.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/repositories/get_food_details_repository.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/infra/datasources/get_food_details_datasource.dart';
 
-class GetFoodDetailsImplementation implements IGetFoodDetailsRepository {
+class GetFoodDetailsRepositoryImplementation implements IGetFoodDetailsRepository {
   IGetFoodDetailsDatasource datasource;
 
-  GetFoodDetailsImplementation(this.datasource);
+  GetFoodDetailsRepositoryImplementation(this.datasource);
 
   @override
   Future<Either<FailureFood, FoodEntity>> getFood(int id) async {

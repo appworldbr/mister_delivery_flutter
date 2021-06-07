@@ -163,13 +163,26 @@ main() {
       expect(future, throwsA(isA<FailureExtraLimitReached>()));
     });
 
+    test('should return a error FailureLoginRequired if code is 401', () {
+      when(dio.post(any, data: food.toJson())).thenAnswer(
+        (_) async => Response(
+          data: true,
+          statusCode: 401,
+          requestOptions: new RequestOptions(path: ''),
+        ),
+      );
+
+      final future = datasource.addFoodToCart(food);
+      expect(future, throwsA(isA<FailureLoginRequired>()));
+    });
+
     test(
         'should return a error FailureAddFoodToCart if code is any other error',
         () {
       when(dio.post(any, data: food.toJson())).thenAnswer(
         (_) async => Response(
           data: true,
-          statusCode: 401,
+          statusCode: 455,
           requestOptions: new RequestOptions(path: ''),
         ),
       );

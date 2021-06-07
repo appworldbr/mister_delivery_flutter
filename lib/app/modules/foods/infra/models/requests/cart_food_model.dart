@@ -26,7 +26,7 @@ class CartFoodModel extends CartFoodEntity {
     return CartFoodModel(
       id: id ?? this.id,
       quantity: quantity ?? this.quantity,
-      extras: this.extras,
+      extras: extras ?? this.extras,
       observation: observation ?? this.observation,
     );
   }
