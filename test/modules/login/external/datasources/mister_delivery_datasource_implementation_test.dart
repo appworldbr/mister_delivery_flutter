@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mister_delivery_flutter/app/modules/login/domain/errors/errors.dart';
-import 'package:mister_delivery_flutter/app/modules/login/external/datasources/mister_delivery_datasource_implementation.dart';
+import 'package:mister_delivery_flutter/app/modules/login/external/datasources/mister_delivery_datasource.dart';
 import 'package:mister_delivery_flutter/app/modules/login/infra/models/request/user_login_model.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -20,7 +20,7 @@ main() {
     ),
   );
 
-  final datasource = MisterDeliveryDatasourceImplementation(dio);
+  final datasource = MisterDeliveryDatasource(dio);
 
   final user = UserLoginModel(
     email: 'user@user.com',

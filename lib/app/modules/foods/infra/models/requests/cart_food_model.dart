@@ -1,14 +1,14 @@
 import 'dart:convert';
 
-import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_extra_entity.dart';
-import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_food_entity.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_extra_request_entity.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_food_request_entity.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/infra/models/requests/cart_extra_model.dart';
 
-class CartFoodModel extends CartFoodEntity {
+class CartFoodModel extends CartFoodRequestEntity {
   CartFoodModel(
       {required int id,
       required int quantity,
-      required List<CartExtraEntity> extras,
+      required List<CartExtraRequestEntity> extras,
       required String observation})
       : super(
           id: id,
@@ -20,7 +20,7 @@ class CartFoodModel extends CartFoodEntity {
   copyWith({
     int? id,
     int? quantity,
-    List<CartExtraEntity>? extras,
+    List<CartExtraRequestEntity>? extras,
     String? observation,
   }) {
     return CartFoodModel(

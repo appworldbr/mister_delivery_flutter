@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_extra_entity.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_extra_request_entity.dart';
 
-class CartExtraModel extends CartExtraEntity {
+class CartExtraModel extends CartExtraRequestEntity {
   CartExtraModel({
     required int id,
     required int quantity,

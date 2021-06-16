@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
-import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_food_entity.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_food_request_entity.dart';
 
 import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/response/extra_entity.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/response/food_entity.dart';
@@ -285,7 +285,7 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsStore> {
                       transform: Matrix4.translationValues(13, 0, 0),
                       child: ScopedBuilder(
                         store: store.cartStore,
-                        onState: (_, CartFoodEntity state) =>
+                        onState: (_, CartFoodRequestEntity state) =>
                             MisterDeliveryCounter(
                           number: state.quantity,
                           addButtonPressed: () =>

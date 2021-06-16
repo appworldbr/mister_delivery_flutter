@@ -6,10 +6,10 @@ import 'package:mister_delivery_flutter/app/modules/config/infra/datasources/con
 import 'package:mister_delivery_flutter/app/modules/config/infra/models/config_model.dart';
 import 'package:mister_delivery_flutter/app/shared/url/models/url_singleton.dart';
 
-class MisterDeliveryDatasourceImplementation implements IConfigDatasource {
+class MisterDeliveryDatasource implements IConfigDatasource {
   final Dio dio;
 
-  MisterDeliveryDatasourceImplementation(this.dio);
+  MisterDeliveryDatasource(this.dio);
 
   @override
   Future<ConfigModel> getConfig() async {

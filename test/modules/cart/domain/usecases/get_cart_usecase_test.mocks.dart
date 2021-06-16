@@ -5,7 +5,7 @@
 import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
-import 'package:mister_delivery_flutter/app/modules/cart/domain/entities/response/cart_food_entity.dart'
+import 'package:mister_delivery_flutter/app/modules/cart/domain/entities/response/cart_food_response_entity.dart'
     as _i6;
 import 'package:mister_delivery_flutter/app/modules/cart/domain/errors/errors.dart'
     as _i5;
@@ -32,10 +32,11 @@ class MockIGetCartRepository extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.FailureCart, List<_i6.CartFoodEntity>>> getCart() =>
-      (super.noSuchMethod(Invocation.method(#getCart, []),
-          returnValue: Future<
-                  _i2.Either<_i5.FailureCart, List<_i6.CartFoodEntity>>>.value(
-              _FakeEither<_i5.FailureCart, List<_i6.CartFoodEntity>>())) as _i4
-          .Future<_i2.Either<_i5.FailureCart, List<_i6.CartFoodEntity>>>);
+  _i4.Future<_i2.Either<_i5.FailureCart, List<_i6.CartFoodResponseEntity>>>
+      getCart() => (super.noSuchMethod(Invocation.method(#getCart, []),
+          returnValue:
+              Future<_i2.Either<_i5.FailureCart, List<_i6.CartFoodResponseEntity>>>.value(
+                  _FakeEither<_i5.FailureCart,
+                      List<_i6.CartFoodResponseEntity>>())) as _i4.Future<
+          _i2.Either<_i5.FailureCart, List<_i6.CartFoodResponseEntity>>>);
 }

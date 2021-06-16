@@ -2,7 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/usecases/add_food_to_cart_usecase.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/usecases/get_food_details_usecase.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/domain/usecases/search_by_name_usecase.dart';
-import 'package:mister_delivery_flutter/app/modules/foods/external/datasources/mister_delivery_datasource_implementation.dart';
+import 'package:mister_delivery_flutter/app/modules/foods/external/datasources/mister_delivery_datasource.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/infra/repositories/add_food_to_cart_repository_implementation.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/infra/repositories/get_food_details_repository_implementation.dart';
 import 'package:mister_delivery_flutter/app/modules/foods/infra/repositories/search_repository_implementation.dart';
@@ -29,7 +29,7 @@ class FoodModule extends Module {
 
   @override
   List<Bind> get binds => [
-        Bind.lazySingleton((i) => MisterDeliveryDatasourceImplementation(i())),
+        Bind.lazySingleton((i) => MisterDeliveryDatasource(i())),
         ...$searchByName,
         ...$getFoodDetails,
         ...$addFoodToCart,

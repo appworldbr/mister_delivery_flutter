@@ -1,6 +1,6 @@
-import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_extra_entity.dart';
+import 'package:mister_delivery_flutter/app/modules/cart/domain/entities/response/cart_extra_response_entity.dart';
 
-class CartFoodEntity {
+class CartFoodResponseEntity {
   final int id;
   final String imageUrl;
   final String name;
@@ -9,9 +9,10 @@ class CartFoodEntity {
   final bool hasDetails;
   final int quantity;
   final num total;
-  final List<CartExtraEntity> extras;
+  final List<CartExtraResponseEntity> extras;
+  final String observation;
 
-  CartFoodEntity({
+  CartFoodResponseEntity({
     required this.id,
     required this.imageUrl,
     required this.name,
@@ -21,5 +22,6 @@ class CartFoodEntity {
     required this.quantity,
     required this.total,
     required this.extras,
+    required this.observation,
   });
 }

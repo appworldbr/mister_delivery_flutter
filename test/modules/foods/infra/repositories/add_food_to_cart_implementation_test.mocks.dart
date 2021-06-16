@@ -4,9 +4,9 @@
 
 import 'dart:async' as _i5;
 
-import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_extra_entity.dart'
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_extra_request_entity.dart'
     as _i3;
-import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_food_entity.dart'
+import 'package:mister_delivery_flutter/app/modules/foods/domain/entities/request/cart_food_request_entity.dart'
     as _i2;
 import 'package:mister_delivery_flutter/app/modules/foods/infra/datasources/add_food_to_cart_datasource.dart'
     as _i4;
@@ -19,11 +19,12 @@ import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: avoid_redundant_argument_values
 
-/// A class which mocks [CartFoodEntity].
+/// A class which mocks [CartFoodRequestEntity].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCartFoodEntity extends _i1.Mock implements _i2.CartFoodEntity {
-  MockCartFoodEntity() {
+class MockCartFoodRequestEntity extends _i1.Mock
+    implements _i2.CartFoodRequestEntity {
+  MockCartFoodRequestEntity() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -34,9 +35,10 @@ class MockCartFoodEntity extends _i1.Mock implements _i2.CartFoodEntity {
   int get quantity =>
       (super.noSuchMethod(Invocation.getter(#quantity), returnValue: 0) as int);
   @override
-  List<_i3.CartExtraEntity> get extras =>
+  List<_i3.CartExtraRequestEntity> get extras =>
       (super.noSuchMethod(Invocation.getter(#extras),
-          returnValue: <_i3.CartExtraEntity>[]) as List<_i3.CartExtraEntity>);
+              returnValue: <_i3.CartExtraRequestEntity>[])
+          as List<_i3.CartExtraRequestEntity>);
   @override
   String get observation =>
       (super.noSuchMethod(Invocation.getter(#observation), returnValue: '')
@@ -53,7 +55,7 @@ class MockIAddFoodToCartDatasource extends _i1.Mock
   }
 
   @override
-  _i5.Future<bool> addFoodToCart(_i2.CartFoodEntity? food) =>
+  _i5.Future<bool> addFoodToCart(_i2.CartFoodRequestEntity? food) =>
       (super.noSuchMethod(Invocation.method(#addFoodToCart, [food]),
           returnValue: Future<bool>.value(false)) as _i5.Future<bool>);
 }

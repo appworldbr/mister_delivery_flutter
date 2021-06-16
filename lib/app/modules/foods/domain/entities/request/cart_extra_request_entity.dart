@@ -1,8 +1,8 @@
-class CartExtraEntity {
+class CartExtraRequestEntity {
   final int id;
   final int quantity;
 
-  CartExtraEntity({
+  CartExtraRequestEntity({
     required this.id,
     required this.quantity,
   });
